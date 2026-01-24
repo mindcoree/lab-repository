@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Task 1</title>
+    <style>
+        .highlight {
+            background: yellow;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        p {
+            font-size: 18px;
+            padding: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1>jQuery - Переключение CSS-класса</h1>
+    
+    <button id="toggleButton">Переключить подсветку</button>
+    
+    <p id="textParagraph">Это абзац текста, который будет подсвечиваться при клике на кнопку.</p>
+
+    <!-- Подключение jQuery через CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Переключение класса highlight по клику на кнопку
+            $('#toggleButton').click(function() {
+                $('#textParagraph').toggleClass('highlight');
+            });
+        });
+    </script>
+</body>
+</html>
