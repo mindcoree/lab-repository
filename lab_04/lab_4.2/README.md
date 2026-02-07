@@ -1,16 +1,122 @@
-# React + Vite
+# Lab 4.2 - Articles Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Описание
 
-Currently, two official plugins are available:
+Приложение на React для управления списком статей с использованием паттерна **Render Props** для передачи данных между компонентами.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Функциональность
 
-## React Compiler
+- **Добавление статей** с указанием заголовка и краткого описания
+- **Удаление статей** из списка
+- **Переключение видимости** описания статьи (клик по заголовку)
+- **Начальный список** статей загружается при запуске
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Компоненты
 
-## Expanding the ESLint configuration
+### `ArticleManager`
+Главный компонент, управляющий состоянием всех статей.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**Состояния:**
+- `articles` - массив статей
+- `title` - значение поля заголовка
+- `summary` - значение поля описания
+
+**Функции:**
+- `onClickAdd()` - добавление новой статьи
+- `onClickRemove(id)` - удаление статьи по ID
+
+**Props:**
+- `renderAddArticle` - функция для рендера компонента добавления
+- `renderArticleList` - функция для рендера списка статей
+
+### `AddArticle`
+Компонент для добавления новой статьи.
+
+**Props:**
+- `name` - заголовок секции
+- `title` - текущее значение заголовка статьи
+- `summary` - текущее значение описания
+- `onChangeTitle` - обработчик изменения заголовка
+- `onChangeSummary` - обработчик изменения описания
+- `onClickAdd` - обработчик клика на кнопку добавления
+
+### `ArticleList`
+Компонент отображения списка статей.
+
+**Props:**
+- `articles` - массив статей
+- `onClickRemove` - функция удаления статьи
+
+### `ArticleItem`
+Компонент отдельной статьи в списке.
+
+**Состояния:**
+- `isOpened` - флаг видимости описания статьи
+
+**Props:**
+- `article` - объект статьи (`id`, `title`, `summary`)
+- `onClickRemove` - функция удаления
+
+**Функции:**
+- `onClickToggle()` - переключение видимости описания
+
+## Установка и запуск
+
+```bash
+# Установка зависимостей
+npm install
+
+# Запуск dev-сервера
+npm run dev
+
+# Сборка для продакшена
+npm run build
+```
+
+## Технологии
+
+- React 18
+- Vite
+- JavaScript (JSX)
+
+## Структура проекта
+
+```
+lab_4.2/
+├── src/
+│   ├── components/
+│   │   ├── ArticleManager.jsx      # Главный компонент
+│   │   ├── AddArticle.jsx          # Форма добавления
+│   │   ├── ArticleList.jsx         # Список статей
+│   │   └── ArticleItem.jsx         # Элемент статьи
+│   ├── App.jsx                      # Точка входа компонентов
+│   ├── main.jsx                     # Точка входа приложения
+│   └── index.css                    # Стили
+├── package.json
+└── vite.config.js
+```
+
+## Паттерны проектирования
+
+### Render Props Pattern
+Используется для передачи функций рендеринга между компонентами:
+
+```jsx
+<ArticleManager 
+  renderAddArticle={(props) => <AddArticle {...props} />}
+  renderArticleList={(props) => <ArticleList {...props} />}
+/>
+```
+
+Это позволяет:
+- Разделить логику управления состоянием и отображения
+- Сделать компоненты более переиспользуемыми
+- Легко заменять компоненты отображения
+
+## Особенности реализации
+
+- **Глобальное состояние** в `ArticleManager` для всех статей
+- **Локальное состояние** в `ArticleItem` для переключения видимости
+- **Генерация ID** на основе `Date.now()`
+- **Контролируемые компоненты** для полей ввода
+- Использование spread-оператора для передачи props

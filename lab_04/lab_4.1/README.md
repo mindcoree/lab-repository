@@ -1,16 +1,87 @@
-# React + Vite
+# Lab 4.1 - Registration Form
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Описание
 
-Currently, two official plugins are available:
+Приложение на React, демонстрирующее создание формы регистрации с валидацией полей и управлением состоянием через хуки.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Функциональность
 
-## React Compiler
+- **Форма регистрации** с полями:
+  - Имя (Name)
+  - Email
+  - Возраст (Age)
+  
+- **Валидация полей**:
+  - Имя: минимум 2 символа
+  - Email: проверка формата email
+  - Возраст: должен быть 18+
+  
+- **Сообщения об ошибках** отображаются под каждым полем
+- **Уведомление об успешной отправке** формы
+- **Очистка полей** после успешной отправки
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Компоненты
 
-## Expanding the ESLint configuration
+### `RegistrationForm`
+Основной компонент формы, управляет состоянием полей и валидацией.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**Состояния:**
+- `name`, `email`, `age` - значения полей
+- `nameError`, `emailError`, `ageError` - ошибки валидации
+- `success` - флаг успешной отправки
+
+**Функции:**
+- `validateName()` - валидация имени
+- `validateEmail()` - валидация email
+- `validateAge()` - валидация возраста
+- `handleSubmit()` - обработка отправки формы
+
+### `FormInput`
+Переиспользуемый компонент для отображения поля ввода с ошибкой.
+
+**Props:**
+- `type` - тип input
+- `placeholder` - текст подсказки
+- `value` - текущее значение
+- `onChange` - обработчик изменения
+- `error` - сообщение об ошибке
+
+## Установка и запуск
+
+```bash
+# Установка зависимостей
+npm install
+
+# Запуск dev-сервера
+npm run dev
+
+# Сборка для продакшена
+npm run build
+```
+
+## Технологии
+
+- React 18
+- Vite
+- JavaScript (JSX)
+
+## Структура проекта
+
+```
+lab_4.1/
+├── src/
+│   ├── components/
+│   │   └── RegistrationForm.jsx   # Компонент формы
+│   ├── App.jsx                     # Главный компонент
+│   ├── main.jsx                    # Точка входа
+│   └── index.css                   # Стили
+├── package.json
+└── vite.config.js
+```
+
+## Особенности реализации
+
+- Использование хука `useState` для управления состоянием
+- Компонентный подход к созданию переиспользуемых элементов
+- Валидация на клиенте с использованием регулярных выражений
+- Контролируемые компоненты (controlled components)
