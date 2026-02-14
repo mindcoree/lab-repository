@@ -1,73 +1,97 @@
-# React + TypeScript + Vite
+# Lab 5.2 - TypeScript с React: Типизация событий и хуков
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Описание
 
-Currently, two official plugins are available:
+Лабораторная работа по изучению типизации событий React и хуков состояния в TypeScript. Проект демонстрирует создание интерактивного приложения для поиска пользователей с полной типизацией.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Функциональность
 
-## React Compiler
+- **Поиск пользователей** - фильтрация списка по имени
+  - Поиск в реальном времени (real-time search)
+  - Регистронезависимый поиск
+  - Отображение результатов или сообщения "No results found"
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Очистка поиска** - кнопка для сброса фильтра
+  - Восстановление полного списка пользователей
+  - Очистка поискового поля
 
-## Expanding the ESLint configuration
+- **Отображение данных**
+  - Список пользователей с именем, email и возрастом
+  - Динамическое обновление при изменении поискового запроса
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Технологии
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **React** 19.2.0
+- **TypeScript** 5.9.3
+- **Vite** 7.3.1
+- **ESLint** с TypeScript поддержкой
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Структура типов
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```typescript
+interface User {
+  name: string;
+  email: string;
+  age: number;
+}
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Типизация событий
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Проект демонстрирует типизацию различных событий React:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```typescript
+// Типизация событий ввода
+React.ChangeEvent<HTMLInputElement>
+
+// Типизация событий клика
+React.MouseEvent<HTMLButtonElement>
 ```
+
+## Типизация хуков
+
+```typescript
+// Типизация useState с массивом пользователей
+const [users] = useState<User[]>(INITIAL_DATA);
+const [filteredUsers, setFilteredUsers] = useState<User[]>(INITIAL_DATA);
+const [searchTerm, setSearchTerm] = useState('');
+```
+
+## Установка и запуск
+
+```bash
+# Установка зависимостей
+npm install
+
+# Запуск dev сервера
+npm run dev
+
+# Сборка проекта
+npm run build
+
+# Линтинг
+npm run lint
+
+# Предпросмотр продакшн сборки
+npm run preview
+```
+
+## Изучаемые концепции
+
+1. **Типизация useState** - явное указание типа состояния
+2. **Типизация обработчиков событий** - `ChangeEvent`, `MouseEvent`
+3. **Generic типы** - использование `<T>` для типизации массивов
+4. **Обработка событий формы** - работа с input и button
+5. **Условный рендеринг** - отображение разного контента в зависимости от состояния
+6. **Фильтрация данных** - работа с методами массивов в TypeScript
+
+## Особенности реализации
+
+- Используется `toLowerCase()` для регистронезависимого поиска
+- Фильтрация происходит при каждом изменении поискового запроса
+- Email используется как уникальный ключ для элементов списка
+- Состояние управляется через типизированные хуки React
+
+## Разработка
+
+Проект использует Vite для быстрой разработки с Hot Module Replacement (HMR). TypeScript обеспечивает проверку типов на этапе разработки, предотвращая ошибки до запуска приложения.

@@ -1,73 +1,74 @@
-# React + TypeScript + Vite
+# Lab 5.1 - TypeScript с React: Типизация компонентов
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Описание
 
-Currently, two official plugins are available:
+Лабораторная работа по изучению основ TypeScript в React. Проект демонстрирует создание типизированных компонентов с использованием интерфейсов, union types и типизации пропсов.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Функциональность
 
-## React Compiler
+- **UserCard** - компонент для отображения карточки пользователя
+  - Принимает типизированные пропсы (user, isActive, children)
+  - Демонстрирует опциональные пропсы и значения по умолчанию
+  - Поддерживает children для гибкого содержимого
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **SkillList** - компонент для отображения списка навыков
+  - Типизированный массив навыков
+  - Цветовая индикация уровня навыков (Beginner, Intermediate, Expert)
+  - Использует union type для ограничения возможных значений уровня
 
-## Expanding the ESLint configuration
+## Технологии
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React** 19.2.0
+- **TypeScript** 5.9.3
+- **Vite** 7.3.1
+- **ESLint** с TypeScript поддержкой
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Структура типов
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+```typescript
+interface User {
+  name: string;
+  email: string;
+  age: number;
+}
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+type SkillLevel = 'Beginner' | 'Intermediate' | 'Expert';
+
+interface Skill {
+  id: number;
+  name: string;
+  level: SkillLevel;
+}
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Установка и запуск
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Установка зависимостей
+npm install
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Запуск dev сервера
+npm run dev
+
+# Сборка проекта
+npm run build
+
+# Линтинг
+npm run lint
+
+# Предпросмотр продакшн сборки
+npm run preview
 ```
+
+## Изучаемые концепции
+
+1. **Интерфейсы TypeScript** - определение структуры данных
+2. **Union Types** - ограничение возможных значений
+3. **Типизация пропсов** - интерфейсы для пропсов компонентов
+4. **React.ReactNode** - типизация children
+5. **Опциональные параметры** - использование `?` и значений по умолчанию
+6. **Типобезопасность** - предотвращение ошибок на этапе компиляции
+
+## Разработка
+
+Проект использует Vite для быстрой разработки с Hot Module Replacement (HMR). При изменении файлов изменения применяются мгновенно без перезагрузки страницы.
