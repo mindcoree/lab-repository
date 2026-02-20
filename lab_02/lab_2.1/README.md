@@ -1,16 +1,39 @@
-# React + Vite
+# Лабораторная работа 2.1
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Описание
 
-Currently, two official plugins are available:
+Данный проект демонстрирует основные концепции React:
+- Использование **React Fragments** для группировки элементов без создания дополнительных DOM-узлов
+- Рендеринг списков с помощью метода **`.map()`**
+- Создание и композиция компонентов
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Компоненты
 
-## React Compiler
+### FragmentLayout
+Демонстрирует использование `React.Fragment` для создания структуры страницы (header, main, footer) без обертки в дополнительный `div`.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### ItemList
+Показывает рендеринг массива данных в список элементов с использованием метода `.map()` и обязательного атрибута `key`.
 
-## Expanding the ESLint configuration
+### CombinedComponent
+Использует короткую форму фрагмента `<>...</>` для группировки нескольких элементов без добавления лишних узлов в DOM.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Установка и запуск
+
+1. Установите зависимости:
+```bash
+npm install
+```
+
+2. Запустите проект в режиме разработки:
+```bash
+npm run dev
+```
+
+3. Откройте браузер по адресу [http://localhost:5173](http://localhost:5173)
+
+## Технологии
+
+- React 18
+- Vite
+- ESLint

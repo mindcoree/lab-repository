@@ -1,16 +1,49 @@
-# React + Vite
+# Лабораторная работа 2.2
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Описание
 
-Currently, two official plugins are available:
+Проект демонстрирует продвинутые концепции React:
+- Использование **props.children** для создания гибких компонентов-обёрток
+- Композицию компонентов для построения сложных интерфейсов
+- Передачу props между компонентами
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Компоненты
 
-## React Compiler
+### Section
+Компонент-обёртка, который принимает заголовок через prop `title` и любое содержимое через `children`. Использует Fragment для группировки элементов.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Card
+Универсальный компонент карточки, который отображает заголовок и любое содержимое, переданное через `children`. Поддерживает динамические CSS классы.
 
-## Expanding the ESLint configuration
+### ProductList
+Компонент для отображения списка продуктов. Использует метод `.map()` для рендеринга массива продуктов в виде карточек `Card`.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Структура данных
+
+```javascript
+const products = [
+  { id: 1, name: "Product 1", description: "Description of Product 1", price: 10 },
+  { id: 2, name: "Product 2", description: "Description of Product 2", price: 20 },
+  { id: 3, name: "Product 3", description: "Description of Product 3", price: 30 }
+];
+```
+
+## Установка и запуск
+
+1. Установите зависимости:
+```bash
+npm install
+```
+
+2. Запустите проект в режиме разработки:
+```bash
+npm run dev
+```
+
+3. Откройте браузер по адресу [http://localhost:5173](http://localhost:5173)
+
+## Технологии
+
+- React 18
+- Vite
+- ESLint
