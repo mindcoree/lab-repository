@@ -1,5 +1,7 @@
+import React from 'react';
 import CombinedComponent from "./components/CombinedComponent";
 import FragmentLayout from "./components/FragmentLayout";
+import './App.css';
 
 
 function App() {
