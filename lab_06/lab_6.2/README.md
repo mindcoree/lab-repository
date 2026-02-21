@@ -1,73 +1,65 @@
-# React + TypeScript + Vite
+# Lab 6.2 — Advanced Routing (TypeScript)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Учебный проект на React + TypeScript + Vite с расширенной маршрутизацией:
+- динамические URL-параметры
+- `loader` для предзагрузки данных маршрута
+- обработка ошибок невалидного маршрута
+- query-параметры (`useSearchParams`) для сортировки
 
-Currently, two official plugins are available:
+## Реализовано
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Базовые маршруты:
+  - `/` — Home
+  - `/about` — About
+  - `/courses` — каталог курсов
+  - `/courses/:id` — детальная страница курса
+  - `*` — NotFound
+- Сортировка списка курсов по query-параметру `sort` (`asc`/`desc`)
+- Загрузка курса по `id` через `loader`
+- `errorElement` для случая, когда курс с таким `id` не найден
 
-## React Compiler
+## Структура проекта
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```text
+src/
+  Layout.tsx
+  data.ts
+  main.tsx
+  pages/
+    Home.tsx
+    Courses.tsx
+    CourseDetail.tsx
+    About.tsx
+    NotFound.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Запуск проекта
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
+
+Откройте адрес из терминала (обычно `http://localhost:5173`).
+
+## Полезные маршруты для проверки
+
+- `/courses`
+- `/courses?sort=desc`
+- `/courses/1`
+- `/courses/999` (проверка `errorElement`)
+
+## Команды
+
+```bash
+npm run build
+npm run preview
+npm run lint
+```
+
+## Технологии
+
+- React 19
+- TypeScript
+- Vite
+- React Router DOM
