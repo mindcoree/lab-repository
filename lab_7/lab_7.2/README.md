@@ -1,73 +1,69 @@
-# React + TypeScript + Vite
+# Лабораторная работа 7.2
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Расширение проекта 7.1 на **React + TypeScript + Vite** с обработкой ошибок UI:
+- ленивые маршруты через `React.lazy`;
+- загрузка через `Suspense`;
+- защита интерфейса с помощью `ErrorBoundary`.
 
-Currently, two official plugins are available:
+## Реализовано
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Динамический импорт страниц:
+  - `Dashboard`
+  - `Settings`
+  - `Profile`
+  - `BuggyPage`
+- `Suspense` показывает `LoadingSpinner`, пока загружаются чанки.
+- `ErrorBoundary` оборачивает `Suspense` и маршруты, перехватывая ошибки рендера.
+- Компонент `ErrorFallback` отображает понятное сообщение при падении.
+- Кнопка `Try Again` в `ErrorBoundary` сбрасывает состояние ошибки и повторяет рендер.
+- Добавлен маршрут `/buggy` для демонстрации и теста обработки ошибок.
 
-## React Compiler
+## Как проверить Error Boundary
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Запустить проект.
+2. Перейти на страницу **Buggy Page** (`/buggy`).
+3. Убедиться, что приложение не «ломается» целиком, а показывает fallback-интерфейс.
+4. Нажать **Try Again** для повторной попытки рендера.
 
-## Expanding the ESLint configuration
+## Технологии
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React 19
+- TypeScript
+- Vite
+- React Router DOM
+- ESLint
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Запуск проекта
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+По умолчанию приложение доступно по адресу: `http://localhost:5173`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Доступные скрипты
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- `npm run dev` — запуск в режиме разработки
+- `npm run build` — сборка проекта
+- `npm run preview` — предпросмотр production-сборки
+- `npm run lint` — проверка линтером
+
+## Структура `src`
+
+```text
+src/
+├─ components/
+│  ├─ LoadingSpinner.tsx
+│  ├─ Spinner.css
+│  ├─ ErrorBoundary.tsx
+│  └─ ErrorFallBack.tsx
+├─ pages/
+│  ├─ Home.tsx
+│  ├─ Dashboard.tsx
+│  ├─ Settings.tsx
+│  ├─ Profile.tsx
+│  └─ BuggyPage.tsx
+├─ App.tsx
+└─ main.tsx
 ```
