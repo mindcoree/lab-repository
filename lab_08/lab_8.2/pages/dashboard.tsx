@@ -14,6 +14,7 @@ interface DashboardProps {
 }
 
 export default function Dashboard({ user, notifications, analytics, currentTime }: DashboardProps) {
+  const numberFormatter = new Intl.NumberFormat("en-US");
   const unreadCount = notifications.filter(n => !n.read).length;
 
   return (
@@ -26,8 +27,8 @@ export default function Dashboard({ user, notifications, analytics, currentTime 
       <section className={styles.analytics}>
         <h2>Analytics</h2>
         <div className={styles.stats}>
-          <div>Page Views: {analytics.pageViews.toLocaleString()}</div>
-          <div>Sessions: {analytics.sessions.toLocaleString()}</div>
+          <div>Page Views: {numberFormatter.format(analytics.pageViews)}</div>
+          <div>Sessions: {numberFormatter.format(analytics.sessions)}</div>
           <div>Bounce Rate: {analytics.bounceRate.toFixed(1)}%</div>
         </div>
       </section>

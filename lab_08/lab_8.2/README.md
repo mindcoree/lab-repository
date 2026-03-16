@@ -20,3 +20,4 @@
 - Dashboard fetches user-specific data on every request using `getServerSideProps`.
 - About page uses `getStaticProps` to generate at build time.
 - About-SSR page shows how SSR updates data on every request.
+
