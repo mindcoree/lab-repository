@@ -1,40 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Next.js Blog — SSR vs SSG
 
-## Getting Started
+This project demonstrates different rendering strategies in Next.js.
 
-First, run the development server:
+## SSG (Static Site Generation)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Used on:
+
+* Home page
+* Individual blog post pages
+* About page
+
+Pages are generated at build time for maximum performance.
+
+## ISR (Incremental Static Regeneration)
+
+Home page and post pages use:
+
+```
+revalidate: 60
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This allows the page to be updated every 60 seconds without full rebuild.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## SSR (Server-Side Rendering)
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+SSR is used when data must be fresh on every request (e.g. user profile page).
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+It is implemented using:
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+getServerSideProps
+```
 
-## Learn More
+## Conclusion
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+SSG provides best performance and scalability.
+SSR provides always fresh data but is slower.
+ISR gives a balance between performance and freshness.

@@ -1,0 +1,51 @@
+.dashboard {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  font-family: system-ui, sans-serif;
+}
+
+.dashboard header h1 {
+  margin-top: 0;
+}
+
+.analytics, .notifications {
+  margin-top: 2rem;
+}
+
+.stats div {
+  margin-bottom: 0.5rem;
+}
+
+.notifications ul {
+  list-style: none;
+  padding: 0;
+}
+
+.notifications li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.notifications .unread {
+  font-weight: bold;
+}
+
+.notifications .type {
+  text-transform: uppercase;
+  margin-right: 0.5rem;
+}
+
+.notifications .info { color: #0070f3; }
+.notifications .success { color: #0f9d58; }
+.notifications .warning { color: #f4b400; }
+
+.footer {
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  color: #666;
+}
+
