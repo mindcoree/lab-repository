@@ -9,7 +9,7 @@ export default {
   },
 
   transform: {
-    '^.+\\.tsx?$': ['ts-jest', { useESM: true }]
+    '^.+\\.tsx?$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.jest.json' }]
   },
 
   testMatch: ['**/*.test.ts?(x)']
