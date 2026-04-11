@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "lab_013.2",
-    "slug": "lab_013.2",
+    "slug": "lab-013-2",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,6 +25,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-font"
+    ]
   }
 }
