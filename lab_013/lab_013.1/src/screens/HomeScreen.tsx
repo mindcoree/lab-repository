@@ -2,12 +2,15 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
+import { useAppTheme } from '../theme/ThemeContext';
 
 type HomeScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Home'>;
 };
 
 export default function HomeScreen({ navigation }: HomeScreenProps) {
+  const { theme } = useAppTheme();
+  const styles = createStyles(theme.colors);
   const userName = 'Timur Medihanov';
   const unreadNotifications = 5;
 
@@ -50,19 +53,63 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f5f5f5' },
-  content: { flex: 1, padding: 20 },
-  welcomeSection: { marginBottom: 30 },
-  welcomeText: { fontSize: 16, color: '#666' },
-  userName: { fontSize: 28, fontWeight: 'bold', color: '#333' },
-  statsSection: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 30 },
-  statCard: { flex: 1, backgroundColor: '#fff', borderRadius: 12, padding: 16, marginHorizontal: 6, alignItems: 'center', elevation: 3 },
-  statValue: { fontSize: 24, fontWeight: 'bold', color: '#0066cc' },
-  statLabel: { fontSize: 12, color: '#666' },
-  actionsSection: { gap: 12 },
-  primaryButton: { backgroundColor: '#0066cc', borderRadius: 8, padding: 16, alignItems: 'center' },
-  primaryButtonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
-  secondaryButton: { borderWidth: 1, borderColor: '#0066cc', borderRadius: 8, padding: 16, alignItems: 'center' },
-  secondaryButtonText: { color: '#0066cc', fontSize: 16, fontWeight: '600' },
-});
+function createStyles(colors: {
+  background: string;
+  surface: string;
+  text: string;
+  mutedText: string;
+  primary: string;
+  border: string;
+  headerTint: string;
+}) {
+  return StyleSheet.create({
+    container: { flex: 1, backgroundColor: colors.background },
+    content: { flex: 1, padding: 20 },
+    welcomeSection: { marginBottom: 30 },
+    welcomeText: { fontSize: 16, color: colors.mutedText },
+    userName: { fontSize: 28, fontWeight: 'bold', color: colors.text },
+    statsSection: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginBottom: 30,
+    },
+    statCard: {
+      flex: 1,
+      backgroundColor: colors.surface,
+      borderRadius: 12,
+      padding: 16,
+      marginHorizontal: 6,
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: colors.border,
+      elevation: 3,
+    },
+    statValue: { fontSize: 24, fontWeight: 'bold', color: colors.primary },
+    statLabel: { fontSize: 12, color: colors.mutedText },
+    actionsSection: { gap: 12 },
+    primaryButton: {
+      backgroundColor: colors.primary,
+      borderRadius: 8,
+      padding: 16,
+      alignItems: 'center',
+    },
+    primaryButtonText: {
+      color: colors.headerTint,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+    secondaryButton: {
+      borderWidth: 1,
+      borderColor: colors.primary,
+      borderRadius: 8,
+      padding: 16,
+      alignItems: 'center',
+      backgroundColor: colors.surface,
+    },
+    secondaryButtonText: {
+      color: colors.primary,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+  });
+}

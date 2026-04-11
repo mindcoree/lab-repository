@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
  
@@ -7,18 +7,35 @@ import HomeScreen from './src/screens/HomeScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 import { RootStackParamList } from './src/navigation/types';
+import { ThemeProvider, useAppTheme } from './src/theme/ThemeContext';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-export default function App() {
+function AppNavigator() {
+  const { theme } = useAppTheme();
+
+  const navigationTheme = {
+    ...DefaultTheme,
+    dark: theme.isDarkMode,
+    colors: {
+      ...DefaultTheme.colors,
+      background: theme.colors.background,
+      card: theme.colors.headerBackground,
+      text: theme.colors.text,
+      border: theme.colors.border,
+      primary: theme.colors.primary,
+      notification: theme.colors.primary,
+    },
+  };
+
   return (
-    <NavigationContainer>
-      <StatusBar style="light" />
+    <NavigationContainer theme={navigationTheme}>
+      <StatusBar style={theme.isDarkMode ? 'light' : 'dark'} />
       <Stack.Navigator
         initialRouteName="Home"
         screenOptions={{
-          headerStyle: { backgroundColor: '#0066cc' },
-          headerTintColor: '#fff',
+          headerStyle: { backgroundColor: theme.colors.headerBackground },
+          headerTintColor: theme.colors.headerTint,
           headerTitleStyle: { fontWeight: 'bold' },
         }}
       >
@@ -39,6 +56,14 @@ export default function App() {
         />
       </Stack.Navigator>
     </NavigationContainer>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <AppNavigator />
+    </ThemeProvider>
   );
 }
 
