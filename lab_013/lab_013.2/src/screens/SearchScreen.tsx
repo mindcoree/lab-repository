@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, FlatList, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useAppTheme } from '../theme/ThemeContext';
 
 interface SearchResult {
   id: string;
@@ -10,6 +11,8 @@ interface SearchResult {
 }
 
 export default function SearchScreen() {
+  const { theme } = useAppTheme();
+  const styles = createStyles(theme.colors);
   const [searchQuery, setSearchQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [recentSearches] = useState<string[]>(['React Native', 'TypeScript', 'Mobile Development']);
@@ -72,16 +75,43 @@ export default function SearchScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f5f5f5' },
-  searchContainer: { backgroundColor: '#0066cc', padding: 16 },
-  searchInputContainer: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff', borderRadius: 10, paddingHorizontal: 12, height: 44 },
-  searchInput: { flex: 1, marginLeft: 8, fontSize: 16 },
-  recentContainer: { padding: 16 },
-  recentTitle: { fontSize: 14, fontWeight: '600', color: '#666', marginBottom: 12 },
-  recentItem: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: '#f0f0f0' },
-  recentText: { marginLeft: 12, fontSize: 16, color: '#333' },
-  resultItem: { padding: 16, backgroundColor: '#fff', borderBottomWidth: 1, borderBottomColor: '#f0f0f0' },
-  resultTitle: { fontSize: 16, fontWeight: '500' },
-  resultSubtitle: { fontSize: 14, color: '#666' },
-});
+function createStyles(colors: {
+  background: string;
+  surface: string;
+  text: string;
+  mutedText: string;
+  primary: string;
+  border: string;
+}) {
+  return StyleSheet.create({
+    container: { flex: 1, backgroundColor: colors.background },
+    searchContainer: { backgroundColor: colors.primary, padding: 16 },
+    searchInputContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: colors.surface,
+      borderRadius: 10,
+      paddingHorizontal: 12,
+      height: 44,
+    },
+    searchInput: { flex: 1, marginLeft: 8, fontSize: 16, color: colors.text },
+    recentContainer: { padding: 16 },
+    recentTitle: { fontSize: 14, fontWeight: '600', color: colors.mutedText, marginBottom: 12 },
+    recentItem: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingVertical: 12,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.border,
+    },
+    recentText: { marginLeft: 12, fontSize: 16, color: colors.text },
+    resultItem: {
+      padding: 16,
+      backgroundColor: colors.surface,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.border,
+    },
+    resultTitle: { fontSize: 16, fontWeight: '500', color: colors.text },
+    resultSubtitle: { fontSize: 14, color: colors.mutedText },
+  });
+}

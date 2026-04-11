@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, SafeAreaView, RefreshControl } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { useAppTheme } from '../theme/ThemeContext';
 
 export default function NotificationsScreen() {
+  const { theme } = useAppTheme();
+  const styles = createStyles(theme.colors);
   const [refreshing, setRefreshing] = useState(false);
   const [notifications, setNotifications] = useState([
     { id: '1', user: 'Jane Smith', message: 'liked your post', read: false },
@@ -37,15 +39,44 @@ export default function NotificationsScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f5f5f5' },
-  header: { padding: 16, backgroundColor: '#fff', borderBottomWidth: 1, borderBottomColor: '#e0e0e0' },
-  headerTitle: { fontSize: 20, fontWeight: 'bold' },
-  notificationItem: { flexDirection: 'row', alignItems: 'center', padding: 16, backgroundColor: '#fff', borderBottomColor: '#f0f0f0', borderBottomWidth: 1 },
-  unreadItem: { backgroundColor: '#f0f8ff' },
-  avatar: { width: 44, height: 44, borderRadius: 22, backgroundColor: '#0066cc', justifyContent: 'center', alignItems: 'center' },
-  avatarText: { color: '#fff', fontWeight: 'bold', fontSize: 18 },
-  content: { flex: 1, marginLeft: 12 },
-  userName: { fontWeight: 'bold' },
-  unreadDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: '#0066cc' }
-});
+function createStyles(colors: {
+  background: string;
+  surface: string;
+  text: string;
+  border: string;
+  mutedText: string;
+  primary: string;
+  unreadBackground: string;
+}) {
+  return StyleSheet.create({
+    container: { flex: 1, backgroundColor: colors.background },
+    header: {
+      padding: 16,
+      backgroundColor: colors.surface,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.border,
+    },
+    headerTitle: { fontSize: 20, fontWeight: 'bold', color: colors.text },
+    notificationItem: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      padding: 16,
+      backgroundColor: colors.surface,
+      borderBottomColor: colors.border,
+      borderBottomWidth: 1,
+    },
+    unreadItem: { backgroundColor: colors.unreadBackground },
+    avatar: {
+      width: 44,
+      height: 44,
+      borderRadius: 22,
+      backgroundColor: colors.primary,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    avatarText: { color: '#fff', fontWeight: 'bold', fontSize: 18 },
+    content: { flex: 1, marginLeft: 12 },
+    userName: { fontWeight: 'bold', color: colors.text },
+    unreadDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: colors.primary },
+  });
+}

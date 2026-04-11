@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Switch, Text, View } from 'react-native';
+import { useAppTheme } from '../theme/ThemeContext';
 
 export default function SettingsScreen() {
-  const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(false);
+  const { theme, setIsDarkMode } = useAppTheme();
   const [areNotificationsEnabled, setAreNotificationsEnabled] = useState(true);
+  const styles = createStyles(theme.colors);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.row}>
         <Text style={styles.label}>Dark Mode</Text>
-        <Switch value={isDarkModeEnabled} onValueChange={setIsDarkModeEnabled} />
+        <Switch value={theme.isDarkMode} onValueChange={setIsDarkMode} />
       </View>
       <View style={styles.row}>
         <Text style={styles.label}>Notifications</Text>
@@ -19,15 +21,17 @@ export default function SettingsScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: '#fff' },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
-  label: { fontSize: 16 },
-});
+function createStyles(colors: { background: string; text: string; border: string }) {
+  return StyleSheet.create({
+    container: { flex: 1, padding: 20, backgroundColor: colors.background },
+    row: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingVertical: 15,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.border,
+    },
+    label: { fontSize: 16, color: colors.text },
+  });
+}

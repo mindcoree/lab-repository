@@ -9,6 +9,9 @@ type ThemeColors = {
   border: string;
   headerBackground: string;
   headerTint: string;
+  tabInactive: string;
+  notificationBadge: string;
+  unreadBackground: string;
 };
 
 type AppTheme = {
@@ -30,6 +33,9 @@ const lightColors: ThemeColors = {
   border: '#e5e5e5',
   headerBackground: '#0066cc',
   headerTint: '#ffffff',
+  tabInactive: '#999999',
+  notificationBadge: '#dc3545',
+  unreadBackground: '#f0f8ff',
 };
 
 const darkColors: ThemeColors = {
@@ -41,6 +47,9 @@ const darkColors: ThemeColors = {
   border: '#374151',
   headerBackground: '#0f172a',
   headerTint: '#f9fafb',
+  tabInactive: '#94a3b8',
+  notificationBadge: '#f43f5e',
+  unreadBackground: '#172554',
 };
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
