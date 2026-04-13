@@ -12,11 +12,37 @@ interface UserCardProps {
 
 // Оптимизированный компонент с помощью memo
 export const UserCard = memo(function UserCard({ user }: UserCardProps) {
-  console.log("UserCard render"); // Лог для проверки перерисовок
+  console.log("UserCard render");
   return (
-    <div style={{ border: '1px solid #ccc', padding: '10px', margin: '10px 0' }}>
-      <h3>{user.name}</h3>
-      <p>{user.email}</p>
+    <div style={{
+      backgroundColor: '#fff',
+      borderRadius: '12px',
+      padding: '20px',
+      marginBottom: '16px',
+      boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)',
+      border: '1px solid #e5e7eb',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '15px'
+    }}>
+      <div style={{
+        width: '48px',
+        height: '48px',
+        borderRadius: '50%',
+        backgroundColor: '#6366f1',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: '1.2rem'
+      }}>
+        {user.name.charAt(0)}
+      </div>
+      <div>
+        <h3 style={{ margin: 0, color: '#111827', fontSize: '1.1rem' }}>{user.name}</h3>
+        <p style={{ margin: 0, color: '#6b7280', fontSize: '0.9rem' }}>{user.email}</p>
+      </div>
     </div>
   );
 });

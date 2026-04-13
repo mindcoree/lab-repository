@@ -14,16 +14,31 @@ function calculateAnalytics(items: string[]): number {
 }
 
 export function AnalyticsChart({ items }: AnalyticsChartProps) {
-  // Кешируем результат вычислений. Функция запустится снова ТОЛЬКО если изменится массив items.
   const analytics = useMemo(() => calculateAnalytics(items), [items]);
   
-  console.log("AnalyticsChart render");
-  
   return (
-    <div style={{ background: '#f5f5f5', padding: '15px', marginTop: '10px' }}>
-      <h3>Analytics Chart</h3>
-      <p>Calculated value: {analytics.toFixed(2)}</p>
-      <p>Items processed: {items.length}</p>
+    <div style={{
+      background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
+      borderRadius: '12px',
+      padding: '24px',
+      color: 'white',
+      marginTop: '20px',
+      boxShadow: '0 10px 15px -3px rgba(0,0,0,0.3)'
+    }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h3 style={{ margin: 0, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#94a3b8' }}>
+          Performance Analytics
+        </h3>
+        <span style={{ backgroundColor: '#22c55e', padding: '4px 8px', borderRadius: '4px', fontSize: '0.7rem', fontWeight: 'bold' }}>
+          LIVE
+        </span>
+      </div>
+      <div style={{ marginTop: '15px' }}>
+        <div style={{ fontSize: '2rem', fontWeight: 'bold' }}>{analytics.toLocaleString()}</div>
+        <p style={{ color: '#94a3b8', fontSize: '0.85rem', marginTop: '5px' }}>
+          Calculated from {items.length} data points
+        </p>
+      </div>
     </div>
   );
 }

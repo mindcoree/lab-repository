@@ -31,20 +31,40 @@ export function Dashboard() {
   }, []);
 
   return (
-    <div style={{ maxWidth: '600px', margin: '0 auto', fontFamily: 'sans-serif' }}>
-      <h1>Dashboard</h1>
-      
-      <div style={{ background: '#e0f7fa', padding: '15px', marginBottom: '20px' }}>
-        <h2>Parent State Updates</h2>
-        <p>Count: {count}</p>
-        <Button onClick={handleIncrement} label="Increment Count" />
-        <Button onClick={handleClick} label="Log Action" />
-      </div>
+    <div style={{ 
+      minHeight: '100vh', 
+      backgroundColor: '#f8fafc', 
+      padding: '40px 20px',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+    }}>
+      <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+        <header style={{ marginBottom: '30px' }}>
+          <h1 style={{ color: '#0f172a', fontSize: '2rem', margin: '0 0 8px 0' }}>Data Lab Dashboard</h1>
+          <p style={{ color: '#64748b', margin: 0 }}>Performance Optimization Lab 9.1</p>
+        </header>
+        
+        <div style={{ 
+          backgroundColor: '#fff', 
+          borderRadius: '12px', 
+          padding: '24px', 
+          marginBottom: '24px',
+          border: '1px solid #e2e8f0' 
+        }}>
+          <h2 style={{ fontSize: '1.25rem', marginBottom: '16px' }}>Controls</h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#6366f1' }}>{count}</div>
+            <Button onClick={handleIncrement} label="Increment Count" />
+            <Button onClick={handleClick} label="Action Log" />
+          </div>
+        </div>
 
-      <UserCard user={user} />
-      <UserCardWithCompare user={user} />
-      <AnalyticsChart items={items} />
-      <ActivityFeed />
+        <UserCard user={user} />
+        <AnalyticsChart items={items} />
+        
+        <div style={{ marginTop: '20px' }}>
+          <ActivityFeed />
+        </div>
+      </div>
     </div>
   );
 }
