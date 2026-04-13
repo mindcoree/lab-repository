@@ -1,73 +1,58 @@
-# React + TypeScript + Vite
+# Lab 9.2 - List Virtualization in React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Лабораторная работа по оптимизации рендеринга больших списков.
 
-Currently, two official plugins are available:
+В проекте реализовано сравнение двух подходов:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Regular List: рендер всех элементов в DOM (медленнее на больших объемах)
+- Virtual List: рендер только видимой части списка через react-window (быстрее и эффективнее)
 
-## React Compiler
+## Технологии
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19
+- TypeScript
+- Vite
+- react-window 2.x
+- ESLint
 
-## Expanding the ESLint configuration
+## Функциональность
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Генерация 10 000 элементов тестовых данных
+- Переключение между обычным и виртуализированным списком
+- Фильтрация элементов по title и category
+- Счетчик отображаемых элементов после фильтрации
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Установка и запуск
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Приложение будет доступно по адресу, который выведет Vite (обычно http://localhost:5173).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Скрипты
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev      # запуск в режиме разработки
+npm run build    # production-сборка
+npm run preview  # предпросмотр production-сборки
+npm run lint     # проверка линтером
 ```
+
+## Структура
+
+```text
+src/
+  components/
+    RegularList.tsx
+    VirtualList.tsx
+  utils/
+    generateItems.ts
+  App.tsx
+  main.tsx
+```
+
+## Цель лабораторной
+
+Показать, как виртуализация снижает нагрузку на браузер за счет уменьшения количества одновременно отрисованных DOM-узлов.
